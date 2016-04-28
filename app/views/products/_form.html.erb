@@ -1,0 +1,44 @@
+<%= form_for @product, :html => { :class => "form-horizontal product" } do |f| %>
+
+    <% if @product.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <%= f.label :nome_do_produto, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:name]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :quantidade_em_estoque, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :quantity, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:quantity]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label 'Valor de venda', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :sale_value, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:sale_value]) %>
+  </div>
+  
+  <br/>
+  <%= f.submit current_page?(new_product_path) ? 'Criar' : 'Editar', :class => 'btn btn-primary' %>
+  <%= link_to t('.cancelar', :default => t("helpers.links.cancelar")),
+            products_path, :class => 'btn btn-default' %>
+
+<% end %>

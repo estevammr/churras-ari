@@ -1,0 +1,44 @@
+<%= form_for @purchase_item, :html => { :class => "form-horizontal purchase_item" } do |f| %>
+
+    <% if @purchase_item.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@purchase_item.errors.count, "error") %> prohibited this purchase_item from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @purchase_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <%= f.label :id_do_produto, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :product_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@purchase_item[:product_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :quantidade_da_compra, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :quantity, :class => 'form-control' %>
+    </div>
+    <%= error_span(@purchase_item[:quantity]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :valor_da_compra, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :value, :class => 'form-control' %>
+    </div>
+    <%= error_span(@purchase_item[:value]) %>
+  </div>
+  
+  <br/>
+  <%= f.submit current_page?(new_purchase_item_path) ? 'Criar' : 'Editar', :class => 'btn btn-primary' %>
+  <%= link_to t('.cancelar', :default => t("helpers.links.cancelar")),
+            purchase_items_path, :class => 'btn btn-default' %>
+
+<% end %>

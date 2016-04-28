@@ -1,0 +1,37 @@
+<%- model_class = Product -%>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id_do_produto) %></th>
+      <th><%= model_class.human_attribute_name(:nome_do_produto) %></th>
+      <th><%= model_class.human_attribute_name(:quantidade_em_estoque) %></th>
+      <th><%= model_class.human_attribute_name(:valor_de_venda) %></th>
+      <th><%= model_class.human_attribute_name(:criado_em) %></th>
+      <th><%=t '.ações', :default => t("helpers.ações") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.id, product_path(product) %></td>
+        <td><%= product.name %></td>
+        <td><%= product.quantity %></td>
+        <td><%= product.sale_value %></td>
+        <td><%=l product.created_at %></td>
+        <td>
+          <%= link_to t('.editar', :default => t("helpers.links.editar")),
+                      edit_product_path(product), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.deletar', :default => t("helpers.links.deletar")),
+                      product_path(product),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.novo_produto', :default => t("helpers.links.novo_produto")),
+            new_product_path,
+            :class => 'btn btn-primary' %>

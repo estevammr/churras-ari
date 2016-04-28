@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quantity_input: 1.5
+  value: 1.5
+
+two:
+  quantity_input: 1.5
+  value: 1.5

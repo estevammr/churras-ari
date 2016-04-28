@@ -1,0 +1,31 @@
+<%- model_class = Purchase -%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:criado_em) %></th>
+      <th><%=t '.ações', :default => t("helpers.ações") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @purchases.each do |purchase| %>
+      <tr>
+        <td><%= link_to purchase.id, purchase_path(purchase) %></td>
+        <td><%=l purchase.created_at %></td>
+        <td>
+          <%= link_to t('.editar', :default => t("helpers.links.editar")),
+                      edit_purchase_path(purchase), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.deletar', :default => t("helpers.links.deletar")),
+                      purchase_path(purchase),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.nova_compra', :default => t("helpers.links.nova_compra")),
+            new_purchase_path,
+            :class => 'btn btn-primary' %>

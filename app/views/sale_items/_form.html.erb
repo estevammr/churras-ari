@@ -1,0 +1,31 @@
+<%= form_for @sale_item, :html => { :class => "form-horizontal sale_item" } do |f| %>
+
+    <% if @sale_item.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@sale_item.errors.count, "error") %> prohibited this sale_item from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @sale_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <%= f.label 'Produtos', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:product_id, options_for_select(products_for_select(@products), set_selected_product(@current_product)), {}, class: 'form-control') %>
+    </div>
+    <%= error_span(@sale_item[:product_id]) %>
+  </div>
+  
+  <br/>
+  <%= f.submit current_page?(new_sale_item_path) ? 'Criar' : 'Editar', :class => 'btn btn-primary' %>
+  <%= link_to t('.cancelar', :default => t("helpers.links.cancelar")),
+            sale_items_path, :class => 'btn btn-default' %>
+
+<% end %>
+
